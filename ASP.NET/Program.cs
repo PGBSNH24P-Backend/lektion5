@@ -11,6 +11,9 @@ public class Program
         builder.Services.AddDbContext<AppDbContext>(options =>
         options.UseNpgsql("Host=localhost;Database=lektion5;Username=postgres;Password=password"));
 
+        builder.Services.AddScoped<RecipeService>();
+        builder.Services.AddScoped<IRecipeRepository, EFRecipeRepository>();
+
         var app = builder.Build();
 
         TestEF(app);
@@ -58,6 +61,24 @@ public class Program
         }
 
 
+    }
+
+    static void ServiceExample()
+    {
+        /*var recipeRepository = new EFRecipeRepository(new AppDbContext());
+        var fakeRepository = new FakeRecipeRepository();
+        var recipeService = new RecipeService(recipeRepository);*/
+    }
+}
+
+public class FakeRecipeRepository : IRecipeRepository
+{
+    public void Remove(RecipeEntity entity)
+    {
+    }
+
+    public void Save(RecipeEntity entity)
+    {
     }
 }
 
